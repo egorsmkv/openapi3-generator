@@ -4,15 +4,19 @@ from apispec import APISpec
 def response(status: str, description: str, schema):
     name = schema.__name__
 
-    return {status: {'description': description, 'content': {'application/json': {'schema': name}}}}
+    return dict(key=status, value={'description': description, 'content': {'application/json': {'schema': name}}})
 
 
 def method(responses, tags=None, security=None):
     if not tags:
         tags = []
 
+    data_responses = {}
+    for it in responses:
+        data_responses[it['key']] = it['value']
+
     data = dict(
-        responses=responses,
+        responses=data_responses,
         tags=tags,
     )
 

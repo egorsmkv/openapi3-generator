@@ -13,7 +13,9 @@ def add_paths(spec: APISpec):
         ],
         operations=dict(
             get=method(
-                response(OK, 'Information about a category', CategorySchema),
+                responses=[
+                    response(OK, 'Information about a category', CategorySchema),
+                ]
             )
         ),
     )
