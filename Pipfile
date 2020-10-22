@@ -8,6 +8,7 @@ verify_ssl = true
 [packages]
 apispec = {extras = ["validation", "yaml"],version = "==4.0.0"}
 marshmallow = "==3.8.0"
+Flask = "==1.1.2"
 
 [requires]
 python_version = "3.7"
