@@ -1,8 +1,8 @@
 # OpenAPI 3 Generator
 
 The goal of this project is to create a generator in Python to conveniently create
-API definition using OpenAPI 3 structure and then to inject the generated YAML file
-with Swagger UI.
+API definitions using OpenAPI 3 structure and then to inject the generated YAML file
+both with Swagger UI to a project.
 
 ### How to use?
 
@@ -14,5 +14,5 @@ pipenv install
 pipenv shell
 
 # create a YAML definition
-python generate.py
+python build.py
 ```
