@@ -23,13 +23,16 @@ def method(responses, tags=None, security=None):
 
 
 def add_schema(spec: APISpec, schema):
-    if not hasattr(schema, 'get_name'):
-        raise Exception('No get_name method in this added schema')
-
     if isinstance(schema, list):
-        for i in schema:
-            spec.components.schema(i.get_name(), schema=i)
+        for item in schema:
+            if not hasattr(item, 'get_name'):
+                raise Exception('No get_name method in this added schema')
+
+            spec.components.schema(item.get_name(), schema=item)
     else:
+        if not hasattr(schema, 'get_name'):
+            raise Exception('No get_name method in this added schema')
+
         spec.components.schema(schema.get_name(), schema=schema)
 
 
