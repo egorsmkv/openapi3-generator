@@ -31,3 +31,6 @@ make run
 ```
 
 Go to http://127.0.0.1:8060 in your browser.
+
+<img src="./examples/screen.png" width="600">
+ 
