@@ -1,8 +1,8 @@
 from apispec import APISpec
 
-from source.helpers import path, method, bearer, response
-from source.schemas.pets import PetSchema
-from source.statuses import OK
+from internal.helpers import path, method, bearer, response
+from api.schemas.pets import PetSchema
+from internal.statuses import OK
 
 
 def add_paths(spec: APISpec):

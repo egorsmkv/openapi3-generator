@@ -1,8 +1,8 @@
 from apispec import APISpec
 
-from source.statuses import OK
-from source.helpers import path, method, response
-from source.schemas.categories import CategorySchema
+from internal.statuses import OK
+from internal.helpers import path, method, response
+from api.schemas.categories import CategorySchema
 
 
 def add_paths(spec: APISpec):

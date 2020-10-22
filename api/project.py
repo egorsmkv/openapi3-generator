@@ -1,13 +1,13 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 
+# from internal.helpers import security_api_key, security_jwt, add_schema
+from internal.helpers import security_jwt, add_schema
+from api.schemas.categories import CategorySchema
+from api.schemas.pets import PetSchema
 from config import *
-# from .helpers import security_api_key, security_jwt, add_schema
-from .helpers import security_jwt, add_schema
-from .schemas.categories import CategorySchema
-from .schemas.pets import PetSchema
 
-from source.paths import pets, categories
+from api.paths import pets, categories
 
 spec = APISpec(
     title=TITLE,
@@ -35,8 +35,10 @@ spec = APISpec(
 # spec.components.security_scheme('ApiKey', security_api_key())
 spec.components.security_scheme('Bearer', security_jwt())
 
+# add schemas
 add_schema(spec, CategorySchema)
 add_schema(spec, PetSchema)
 
+# add paths
 categories.add_paths(spec)
 pets.add_paths(spec)

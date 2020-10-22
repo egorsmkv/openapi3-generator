@@ -1,7 +1,7 @@
 from marshmallow import Schema, fields
 import datetime as dt
 
-from source.schemas.categories import CategorySchema
+from api.schemas.categories import CategorySchema
 
 
 class PetSchema(Schema):
