@@ -39,7 +39,7 @@ spec.components.security_scheme('Bearer', security_jwt())
 add_schema(spec, CategorySchema)
 add_schema(spec, PetSchema)
 
-# or like a list of schemes
+# or as a list of schemes
 
 # add_schema(spec, [
 #     CategorySchema,
