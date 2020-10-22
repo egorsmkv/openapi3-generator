@@ -36,7 +36,7 @@ def add_schema(spec: APISpec, schema):
         spec.components.schema(schema.get_name(), schema=schema)
 
 
-def path(name: str, description: str):
+def param(name: str, description: str):
     return {'name': name, 'in': 'path', 'required': True, 'description': description, 'schema': {'type': 'string'}}
 
 

@@ -1,6 +1,6 @@
 from apispec import APISpec
 
-from internal.helpers import path, method, bearer, response
+from internal.helpers import param, method, bearer, response
 from api.schemas.pets import PetSchema
 from internal.statuses import OK
 
@@ -9,7 +9,7 @@ def add_paths(spec: APISpec):
     spec.path(
         path='/pet/{id}',
         parameters=[
-            path('id', 'ID of a Pet')
+            param('id', 'ID of a Pet')
         ],
         summary='Get or Update a pet by its ID',
         operations=dict(
