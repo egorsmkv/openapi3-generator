@@ -56,6 +56,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategorySchema'
           description: Information about a category
+      tags: []
     parameters:
     - description: ID of a Category
       in: path
@@ -74,6 +75,8 @@ paths:
           description: An object a Pet
       security:
       - Bearer: []
+      tags:
+      - pets
     parameters:
     - description: ID of a Pet
       in: path
@@ -89,10 +92,19 @@ paths:
               schema:
                 $ref: '#/components/schemas/PetSchema'
           description: Response an object of updated pet
+      tags:
+      - pets
     summary: Get or Update a pet by its ID
 servers:
 - description: Production Server
   url: https://production.example.com/
 - description: Development Server
   url: https://localhost:8000/
-
+tags:
+- description: Everything about your Pets
+  externalDocs:
+    description: Find out more
+    url: http://swagger.io
+  name: pets
+- description: Basic APIs
+  name: default
