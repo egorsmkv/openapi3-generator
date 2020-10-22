@@ -32,10 +32,6 @@ components:
           type: string
       type: object
   securitySchemes:
-    ApiKey:
-      in: header
-      name: X-API-Key
-      type: apiKey
     Bearer:
       bearerFormat: JWT
       scheme: bearer
@@ -45,7 +41,7 @@ info:
     email: support@example.com
     name: API Support
     url: http://www.example.com/support
-  description: A minimal petstore API
+  description: Swagger Petstore
   termsOfService: http://example.com/terms/
   title: Swagger Petstore
   version: 1.0.0
@@ -59,7 +55,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CategorySchema'
-          description: ''
+          description: Information about a category
     parameters:
     - description: ID of a Category
       in: path
@@ -75,9 +71,9 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/PetSchema'
-          description: Get a Pet
+          description: An object a Pet
       security:
-      - ApiKey: []
+      - Bearer: []
     parameters:
     - description: ID of a Pet
       in: path
@@ -85,17 +81,18 @@ paths:
       required: true
       schema:
         type: string
-    post:
+    patch:
       responses:
         '200':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/PetSchema'
-          description: Add a new Pet
-      security:
-      - Bearer: []
-    summary: Gets a Pet by its ID
+          description: Response an object of updated pet
+    summary: Get or Update a pet by its ID
 servers:
-- description: Staging server
-  url: https://staging.example.com/v1
+- description: Production Server
+  url: https://production.example.com/
+- description: Development Server
+  url: https://localhost:8000/
+
