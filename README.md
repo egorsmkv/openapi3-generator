@@ -1,7 +1,7 @@
 # OpenAPI 3 Generator
 
-The goal of this project is to create a generator in Python that conveniently creates
-API definitions using OpenAPI 3 format and then to inject the generated YAML file
+The goal of this project is to create a generator that conveniently creates
+API definitions in OpenAPI 3 format and then injects the generated YAML file
 with Swagger UI to any project.
 
 ### How to use?
@@ -19,8 +19,8 @@ pipenv shell
 python build.py
 ```
 
-If you are prototyping your API then run Flask with Swagger UI and start
-the job by editing schemas and paths:
+If you are prototyping your API then run a Flask app with Swagger UI using [GNU make](https://www.gnu.org/software/make/) and start
+to create your API by editing schemas and paths:
 
 ```bash
 make run
@@ -30,7 +30,9 @@ make run
 # * Debugger is active!
 ```
 
-Go to http://127.0.0.1:8060 in your browser.
+You can find Swagger UI on http://127.0.0.1:8060 in your browser.
+
+Demo:
 
 <img src="./examples/screen.png" width="800">
  
