@@ -14,8 +14,9 @@ Swagger UI HTML code which requests the generated YAML file).
 #### Why I made the project
 
 I was developing a project in PHP using this library [php-swagger](https://github.com/zircote/swagger-php). It
-has ability to describe an API using annotations in docstrings in classes/methods (you can find alternative projects for your language,
-the idea behind is to describe API's definition something near the code: routes, paths, views, etc).
+has ability to describe an API using annotations in docstrings of classes/methods (you can find alternative
+projects for your programming language, the idea behind is to describe API's definitions something near the code: 
+routes, paths, views, etc).
 
 But this method has some problems to me:
 
@@ -27,19 +28,19 @@ with schemas/paths
 
 ### What does the project do?
 
-- Generates a YAML file of your API with paths, schemes, security methods in the OpenAPI 3 format
-- Runs a Flask web server for prototyping (Flask is used only for development purposes, it is not meant to
-create API using Flask, but you can do it as well)
+- Generates a YAML file of your API with paths, schemes, requests, security methods in the [OpenAPI 3](https://swagger.io/specification/) format
+- Runs a Flask web server for prototyping (Flask is used only for development purposes, it is not meant here to
+create an API using Flask, but you can do it as well)
 
 ### Structure of the project
 
-- `config.py` : basic information about the API (title, description, support contacts, tags info and etc)
-- `swagger_ui.py` : run a Flask web server for prototyping
+- `config.py` : basic information about the API (title, description, support contacts, servers, tags info and etc)
+- `swagger_ui.py` : a Flask web server for prototyping
 - `build.py` : a build script to create the `api.yaml` file
-- `api/paths` : your API paths are locating here
+- `api/paths` : your API paths
 - `api/requests` : your API requests
 - `api/schemas` : your API schemas for responses and request bodies
-- `api/project.py` : here you add your schemas, requests and paths
+- `api/project.py` : here you add your classes of schemas, requests and paths
 
 ### Requirements
 
@@ -48,7 +49,7 @@ Tools:
 - Python 3.7
 - [pipenv](https://docs.pipenv.org)
 
-Knowledge with:
+Knowledge in:
 
 - Swagger
 - Python
@@ -84,8 +85,11 @@ python build.py
 
 ### Prototyping mode
 
-If you are prototyping your API then you can run a Flask app with Swagger UI using [GNU make](https://www.gnu.org/software/make/) and start
-to create your API by editing schemas and paths:
+If you are prototyping your API then you can run a Flask web server with pre-defined Swagger UI using [GNU make](https://www.gnu.org/software/make/) and start
+to create your API by editing schemas, paths and other objects.
+
+The web server is running in **debug mode**, it will reload the app each time when you change something
+in the project and after any change you can just refresh a page to see new version your API definitions in Swagger UI.
 
 ```bash
 make run
