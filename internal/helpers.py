@@ -32,7 +32,7 @@ def response_text(status: str, description: str):
     )
 
 
-def method(responses, tags=None, summary=None, request_body=None, security=None):
+def method(responses, tags=None, summary=None, request_body=None, operation_id=None, security=None):
     if not tags:
         tags = []
 
@@ -51,6 +51,9 @@ def method(responses, tags=None, summary=None, request_body=None, security=None)
 
     if summary:
         data['summary'] = summary
+
+    if operation_id:
+        data['operationId'] = operation_id
 
     if security:
         data['security'] = security

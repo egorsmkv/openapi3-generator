@@ -9,10 +9,11 @@ def add_paths(spec: APISpec):
     spec.path(
         path='/category/{id}',
         parameters=[
-            param('id', 'ID of a Category')
+            param('id', 'Identifier of a category')
         ],
         operations=dict(
             get=method(
+                tags=['categories'],
                 responses=[
                     response_json(OK, 'Information about a category', CategorySchema),
                 ]

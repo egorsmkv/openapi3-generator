@@ -11,7 +11,7 @@ def add_paths(spec: APISpec):
     spec.path(
         path='/pet/{id}',
         parameters=[
-            param('id', 'ID of a Pet')
+            param('id', 'Identifier of a Pet')
         ],
         operations=dict(
             get=method(
@@ -21,6 +21,7 @@ def add_paths(spec: APISpec):
                     response_json(OK, 'An object a Pet', PetSchema),
                     response_json(NOT_FOUND, 'An object does not exist', ApiErrorSchema),
                 ],
+                operation_id='getPet',
                 security=[
                     bearer(),
                 ]
@@ -32,6 +33,7 @@ def add_paths(spec: APISpec):
                 responses=[
                     response_json(OK, 'A pet is created', PetSchema),
                 ],
+                operation_id='postPet',
                 security=[
                     bearer(),
                 ]
@@ -43,6 +45,7 @@ def add_paths(spec: APISpec):
                 responses=[
                     response_json(OK, 'Response an object of updated pet', PetSchema),
                 ],
+                operation_id='patchPet',
                 security=[
                     bearer(),
                 ]

@@ -5,14 +5,17 @@ class CategorySchema(Schema):
     id = fields.Int(
         dump_only=True,
         description='ID',
+        example=1,
     )
 
     name = fields.Str(
-        description='A name',
+        description='Name',
         required=True,
+        example='Pug dogs',
     )
 
     size = fields.Int(
         format='int64',
-        description='Size of name',
+        description='Number of elements in the category',
+        example=20,
     )

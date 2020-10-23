@@ -12,7 +12,7 @@ from api.paths import basic, pets, categories
 spec = APISpec(
     title=TITLE,
     version=VERSION,
-    openapi_version='3.0.2',
+    openapi_version=OPENAPI_VERSION,
     info=dict(
         description=DESCRIPTION,
         termsOfService=TERMS_OF_USE,
@@ -26,11 +26,9 @@ spec = APISpec(
             url=LICENSE_URL,
         )
     ),
-    servers=[
-        dict(url=PRODUCTION_SERVER_URL, description=PRODUCTION_SERVER_DESC),
-        dict(url=DEVELOPMENT_SERVER_URL, description=DEVELOPMENT_SERVER_DESC),
-    ],
+    servers=SERVERS,
     tags=TAGS,
+    externalDocs=dict(url=EXTERNAL_DOCS_URL, description=EXTERNAL_DOCS_DESCRIPTION),
     plugins=[
         MarshmallowPlugin(),
     ],

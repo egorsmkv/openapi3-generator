@@ -29,13 +29,16 @@ components:
       properties:
         id:
           description: ID
+          example: 1
           readOnly: true
           type: integer
         name:
-          description: A name
+          description: Name
+          example: Pug dogs
           type: string
         size:
-          description: Size of name
+          description: Number of elements in the category
+          example: 20
           format: int64
           type: integer
       required:
@@ -78,19 +81,23 @@ components:
       bearerFormat: JWT
       scheme: bearer
       type: http
+externalDocs:
+  description: More docs about this API
+  url: http://docs.example.com
 info:
   contact:
     email: support@example.com
     name: API Support
-    url: http://www.example.com/support
-  description: Swagger Petstore
+    url: http://example.com/support
+  description: This is a simple project that demonstrates the OpenAPI 3 Generator
+    project
   license:
     name: MIT
     url: https://en.wikipedia.org/wiki/MIT_License
   termsOfService: http://example.com/terms/
-  title: Swagger Petstore
+  title: Simple API
   version: 1.0.0
-openapi: 3.0.2
+openapi: 3.0.3
 paths:
   /ping:
     get:
@@ -127,9 +134,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/CategorySchema'
           description: Information about a category
-      tags: []
+      tags:
+      - categories
     parameters:
-    - description: ID of a Category
+    - description: Identifier of a category
       in: path
       name: id
       required: true
@@ -137,6 +145,7 @@ paths:
         type: string
   /pet/{id}:
     get:
+      operationId: getPet
       responses:
         '200':
           content:
@@ -156,13 +165,14 @@ paths:
       tags:
       - pets
     parameters:
-    - description: ID of a Pet
+    - description: Identifier of a Pet
       in: path
       name: id
       required: true
       schema:
         type: string
     patch:
+      operationId: patchPet
       requestBody:
         $ref: '#/components/requestBodies/UpdatePetRequest'
       responses:
@@ -178,6 +188,7 @@ paths:
       tags:
       - pets
     post:
+      operationId: postPet
       requestBody:
         $ref: '#/components/requestBodies/CreatePetRequest'
       responses:
@@ -193,15 +204,29 @@ paths:
       tags:
       - pets
 servers:
-- description: Production Server
-  url: https://production.example.com/
-- description: Development Server
-  url: https://localhost:8000/
+- description: Production server
+  url: https://production.example.com
+- description: Stage server for a customer
+  url: https://{customer}.stage.example.com:{port}
+  variables:
+    port:
+      default: '8001'
+      description: A customer identifier
+      enum:
+      - '8001'
+      - '443'
+    username:
+      default: mark
+      description: A customer identifier
+- description: Development server
+  url: http://localhost:8000
 tags:
 - description: Everything about your Pets
   externalDocs:
     description: Find out more
     url: http://swagger.io
   name: pets
-- description: Basic APIs
+- description: Everything about categories
+  name: categories
+- description: Basic paths
   name: default
