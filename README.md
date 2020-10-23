@@ -37,8 +37,9 @@ create API using Flask, but you can do it as well)
 - `swagger_ui.py` : run a Flask web server for prototyping
 - `build.py` : a build script to create the `api.yaml` file
 - `api/paths` : your API paths are locating here
-- `api/schemas` : your API schemas (API responses, API request objects and etc)
-- `api/project.py` : here you add your schemas and paths
+- `api/requests` : your API requests
+- `api/schemas` : your API schemas for responses and request bodies
+- `api/project.py` : here you add your schemas, requests and paths
 
 ### Requirements
 

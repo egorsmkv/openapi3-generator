@@ -47,18 +47,16 @@ add_schema(spec, [
     UpdatePetBody,
 ])
 
-# or as a list of schemes
-
-# add_schema(spec, [
-#     CategorySchema,
-#     PetSchema
-# ])
-
 # add paths
-basic.add_paths(spec)
-categories.add_paths(spec)
-pets.add_paths(spec)
+modules = [
+    basic,
+    categories,
+    pets
+]
+for module in modules:
+    module.add_paths(spec)
 
+# list all request classes
 requests = [
     CreatePetRequest,
     UpdatePetRequest,
