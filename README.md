@@ -55,9 +55,14 @@ Knowledge with:
 
 ## How to use?
 
-### One-time mode
+Just fork or copy this project to your computer using git:
 
-To create an `api.yaml` file with your API definitions in the OpenAPI 3 format:
+```
+git clone https://github.com/egorsmkv/openapi3-generator.git
+cd openapi3-generator
+```
+
+After the cloning, initialize the environment:
 
 ```bash
 # install all dependencies
@@ -65,7 +70,13 @@ pipenv install
 
 # enter the environment
 pipenv shell
+```
 
+### One-time mode
+
+To create an `api.yaml` file with your API definitions in the OpenAPI 3 format:
+
+```bash
 # create an api.yaml file
 python build.py
 ```
@@ -81,6 +92,15 @@ make run
 # * Running on http://127.0.0.1:8060/ (Press CTRL+C to quit)
 # * Restarting with stat
 # * Debugger is active!
+```
+
+If you don't have GNU make, use the following commands:
+
+```bash
+export FLASK_APP="swagger_ui.py"
+export FLASK_ENV="development"
+
+python -m flask run --port=8060
 ```
 
 You can find the Swagger UI page on http://127.0.0.1:8060 in your browser.
