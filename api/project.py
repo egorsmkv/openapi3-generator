@@ -1,13 +1,13 @@
 from apispec import APISpec
 from apispec.ext.marshmallow import MarshmallowPlugin
 
-# from internal.helpers import security_api_key, security_jwt, add_schema
 from internal.helpers import security_jwt, add_schema
 from api.schemas.categories import CategorySchema
-from api.schemas.pets import PetSchema
+from api.requests.pets import CreatePetRequest, UpdatePetRequest
+from api.schemas.pets import PetSchema, CreatePetBody, UpdatePetBody
 from config import *
 
-from api.paths import pets, categories
+from api.paths import basic, pets, categories
 
 spec = APISpec(
     title=TITLE,
@@ -20,6 +20,10 @@ spec = APISpec(
             name=CONTACT_NAME,
             url=CONTACT_URL,
             email=CONTACT_EMAIL
+        ),
+        license=dict(
+            name=LICENSE_NAME,
+            url=LICENSE_URL,
         )
     ),
     servers=[
@@ -38,6 +42,10 @@ spec.components.security_scheme('Bearer', security_jwt())
 # add schemas
 add_schema(spec, CategorySchema)
 add_schema(spec, PetSchema)
+add_schema(spec, [
+    CreatePetBody,
+    UpdatePetBody,
+])
 
 # or as a list of schemes
 
@@ -47,5 +55,11 @@ add_schema(spec, PetSchema)
 # ])
 
 # add paths
+basic.add_paths(spec)
 categories.add_paths(spec)
 pets.add_paths(spec)
+
+requests = [
+    CreatePetRequest,
+    UpdatePetRequest,
+]

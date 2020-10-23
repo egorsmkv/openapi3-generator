@@ -1,12 +1,13 @@
 from flask import Flask, render_template
-from api.project import spec
+from api.project import spec, requests
+from internal.helpers import add_request_bodies
 
-app = Flask(__name__)
+app = Flask(__name__, template_folder='misc/templates')
 
 
 @app.route('/swagger.yaml')
 def swagger_yaml():
-    return spec.to_yaml()
+    return add_request_bodies(spec, requests)
 
 
 @app.route('/')

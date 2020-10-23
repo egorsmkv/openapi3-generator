@@ -16,7 +16,3 @@ class CategorySchema(Schema):
         format='int64',
         description='Size of name',
     )
-
-    @staticmethod
-    def get_name():
-        return 'CategorySchema'

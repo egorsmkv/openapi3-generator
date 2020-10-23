@@ -1,4 +1,5 @@
-from api.project import spec
+from api.project import spec, requests
+from internal.helpers import add_request_bodies
 
 
 def save(data):
@@ -7,7 +8,7 @@ def save(data):
 
 
 if __name__ == '__main__':
-    yaml = spec.to_yaml()
+    yaml = add_request_bodies(spec, requests)
 
     print(yaml)
 

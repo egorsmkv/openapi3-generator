@@ -1,7 +1,7 @@
 from apispec import APISpec
 
 from internal.statuses import OK
-from internal.helpers import param, method, response
+from internal.helpers import param, method, response_json
 from api.schemas.categories import CategorySchema
 
 
@@ -14,7 +14,7 @@ def add_paths(spec: APISpec):
         operations=dict(
             get=method(
                 responses=[
-                    response(OK, 'Information about a category', CategorySchema),
+                    response_json(OK, 'Information about a category', CategorySchema),
                 ]
             )
         ),

@@ -9,7 +9,3 @@ class ApiErrorSchema(Schema):
     message = fields.Str(
         required=True,
     )
-
-    @staticmethod
-    def get_name():
-        return 'ApiErrorSchema'

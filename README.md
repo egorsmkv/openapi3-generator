@@ -36,7 +36,7 @@ create API using Flask, but you can do it as well)
 - `config.py` : basic information about the API (title, description, support contacts, tags info and etc)
 - `swagger_ui.py` : run a Flask web server for prototyping
 - `build.py` : a build script to create the `api.yaml` file
-- `api/paths` : your API paths are location here
+- `api/paths` : your API paths are locating here
 - `api/schemas` : your API schemas (API responses, API request objects and etc)
 - `api/project.py` : here you add your schemas and paths
 
@@ -107,5 +107,5 @@ You can find the Swagger UI page on http://127.0.0.1:8060 in your browser.
 
 ## Demo
 
-<img src="./examples/screen.png" width="800">
+<img src="misc/screen.png" width="800">
  

@@ -1,13 +1,38 @@
 from apispec import APISpec
+from apispec.yaml_utils import dict_to_yaml
+
+FORMAT_JSON = 'application/json'
+FORMAT_TEXT = 'text/plain'
 
 
-def response(status: str, description: str, schema):
-    name = schema.__name__
+def response(status: str, value: dict):
+    return dict(
+        key=status,
+        value=value
+    )
 
-    return dict(key=status, value={'description': description, 'content': {'application/json': {'schema': name}}})
+
+def response_json(status: str, description: str, schema):
+    return dict(
+        key=status,
+        value=dict(
+            description=description,
+            content={FORMAT_JSON: dict(schema=schema.__name__)}
+        )
+    )
 
 
-def method(responses, tags=None, security=None):
+def response_text(status: str, description: str):
+    return dict(
+        key=status,
+        value=dict(
+            description=description,
+            content={FORMAT_TEXT: dict(schema=dict(type='string'))}
+        )
+    )
+
+
+def method(responses, tags=None, summary=None, request_body=None, security=None):
     if not tags:
         tags = []
 
@@ -20,24 +45,55 @@ def method(responses, tags=None, security=None):
         tags=tags,
     )
 
+    if request_body:
+        ref = {'$ref': f'#/components/requestBodies/{request_body().name}'}
+        data['requestBody'] = ref
+
+    if summary:
+        data['summary'] = summary
+
     if security:
         data['security'] = security
 
     return data
 
 
+def add_request_bodies(doc, requests):
+    doc_raw = doc.to_dict()
+    doc_raw['components']['requestBodies'] = make_requests(requests)
+
+    return dict_to_yaml(doc_raw)
+
+
 def add_schema(spec: APISpec, schema):
     if isinstance(schema, list):
         for item in schema:
-            if not hasattr(item, 'get_name'):
-                raise Exception('No get_name method in this added schema')
-
-            spec.components.schema(item.get_name(), schema=item)
+            spec.components.schema(item.__name__, schema=item)
     else:
-        if not hasattr(schema, 'get_name'):
-            raise Exception('No get_name method in this added schema')
+        spec.components.schema(schema.__name__, schema=schema)
 
-        spec.components.schema(schema.get_name(), schema=schema)
+
+def make_request(request):
+    ref_name = f'#/components/schemas/{request.schema.__name__}'
+
+    return dict(
+        key=request.name,
+        value=dict(
+            description=request.description,
+            required=request.required,
+            content={request.format: dict(schema={'$ref': ref_name})}
+        )
+    )
+
+
+def make_requests(lst: list):
+    requests = {}
+
+    for item in lst:
+        data = make_request(item)
+        requests[data['key']] = data['value']
+
+    return requests
 
 
 def param(name: str, description: str):

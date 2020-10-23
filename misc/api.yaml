@@ -1,5 +1,30 @@
 components:
+  requestBodies:
+    CreatePetRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/CreatePetBody'
+      description: JSON object with data to create a new pet
+      required: true
+    UpdatePetRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UpdatePetBody'
+      description: JSON object with data to update a pet
+      required: true
   schemas:
+    ApiError:
+      properties:
+        code:
+          type: integer
+        message:
+          type: string
+      required:
+      - code
+      - message
+      type: object
     CategorySchema:
       properties:
         id:
@@ -16,6 +41,13 @@ components:
       required:
       - name
       type: object
+    CreatePetBody:
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
     PetSchema:
       properties:
         categories:
@@ -24,10 +56,20 @@ components:
             $ref: '#/components/schemas/CategorySchema'
           type: array
         created_at:
-          default: When item was created
+          description: When this item was created
           format: date-time
           readOnly: true
+          title: Created At
           type: string
+        name:
+          type: string
+      type: object
+    UpdatePetBody:
+      properties:
+        categories:
+          items:
+            $ref: '#/components/schemas/CategorySchema'
+          type: array
         name:
           type: string
       type: object
@@ -42,11 +84,40 @@ info:
     name: API Support
     url: http://www.example.com/support
   description: Swagger Petstore
+  license:
+    name: MIT
+    url: https://en.wikipedia.org/wiki/MIT_License
   termsOfService: http://example.com/terms/
   title: Swagger Petstore
   version: 1.0.0
 openapi: 3.0.2
 paths:
+  /ping:
+    get:
+      responses:
+        '200':
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: It must be a PONG
+      summary: Ping our API
+      tags:
+      - default
+  /tests/long-uri:
+    get:
+      responses:
+        '414':
+          description: Request URI too large.
+        default:
+          content:
+            text/plain:
+              schema:
+                type: string
+          description: Unexpected error
+      summary: If the URI is long then throw an error
+      tags:
+      - default
   /category/{id}:
     get:
       responses:
@@ -73,8 +144,15 @@ paths:
               schema:
                 $ref: '#/components/schemas/PetSchema'
           description: An object a Pet
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiError'
+          description: An object does not exist
       security:
       - Bearer: []
+      summary: Get a pet
       tags:
       - pets
     parameters:
@@ -85,6 +163,8 @@ paths:
       schema:
         type: string
     patch:
+      requestBody:
+        $ref: '#/components/requestBodies/UpdatePetRequest'
       responses:
         '200':
           content:
@@ -92,9 +172,26 @@ paths:
               schema:
                 $ref: '#/components/schemas/PetSchema'
           description: Response an object of updated pet
+      security:
+      - Bearer: []
+      summary: Update a pet
       tags:
       - pets
-    summary: Get or Update a pet by its ID
+    post:
+      requestBody:
+        $ref: '#/components/requestBodies/CreatePetRequest'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PetSchema'
+          description: A pet is created
+      security:
+      - Bearer: []
+      summary: Create a pet
+      tags:
+      - pets
 servers:
 - description: Production Server
   url: https://production.example.com/
