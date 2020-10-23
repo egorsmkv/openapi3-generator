@@ -1,12 +1,63 @@
 # OpenAPI 3 Generator
 
 The goal of this project is to create a generator that conveniently creates
-API definitions in OpenAPI 3 format and then injects the generated YAML file
-with Swagger UI to any project.
+API definitions in the OpenAPI 3 format using [marshmallow](https://marshmallow.readthedocs.io/) classes
+and saves them into a YAML file.
 
-### How to use?
+You can think this project as programmable API definitions/documentation for your API (your API can be written in any language, not only in Python).
 
-To create a `api.yaml` file:
+Python is used here just for convenience of describing classes and has less code yet strong typing.
+
+Then you can inject the generated YAML file with Swagger UI to any project (just a page that renders
+Swagger UI HTML code which requests the generated YAML file).
+
+#### Why I made the project
+
+I was developing a project in PHP using this library [php-swagger](https://github.com/zircote/swagger-php). It
+has ability to describe an API using annotations in docstrings in classes/methods (you can find alternative projects for your language,
+the idea behind is to describe API's definition something near the code: routes, paths, views, etc).
+
+But this method has some problems to me:
+
+- I couldn't describe the API's definitions as real code when the interpreter/compiler could fix my issues
+with schemas/paths
+- I had issues with spaces in docstrings and it looked ugly and messy
+- I wanted to have versioned pages of my API (i.e.: v1.0, v1.1, v1.2)
+- I wanted to make validation of the resulted API definitions after writing it
+
+### What does the project do?
+
+- Generates a YAML file of your API with paths, schemes, security methods in the OpenAPI 3 format
+- Runs a Flask web server for prototyping (Flask is used only for development purposes, it is not meant to
+create API using Flask, but you can do it as well)
+
+### Structure of the project
+
+- `config.py` : basic information about the API (title, description, support contacts, tags info and etc)
+- `swagger_ui.py` : run a Flask web server for prototyping
+- `build.py` : a build script to create the `api.yaml` file
+- `api/paths` : your API paths are location here
+- `api/schemas` : your API schemas (API responses, API request objects and etc)
+- `api/project.py` : here you add your schemas and paths
+
+### Requirements
+
+Tools:
+
+- Python 3.7
+- [pipenv](https://docs.pipenv.org)
+
+Knowledge with:
+
+- Swagger
+- Python
+- YAML format
+
+## How to use?
+
+### One-time mode
+
+To create an `api.yaml` file with your API definitions in the OpenAPI 3 format:
 
 ```bash
 # install all dependencies
@@ -15,11 +66,13 @@ pipenv install
 # enter the environment
 pipenv shell
 
-# create a YAML definition
+# create an api.yaml file
 python build.py
 ```
 
-If you are prototyping your API then run a Flask app with Swagger UI using [GNU make](https://www.gnu.org/software/make/) and start
+### Prototyping mode
+
+If you are prototyping your API then you can run a Flask app with Swagger UI using [GNU make](https://www.gnu.org/software/make/) and start
 to create your API by editing schemas and paths:
 
 ```bash
@@ -30,9 +83,9 @@ make run
 # * Debugger is active!
 ```
 
-You can find Swagger UI on http://127.0.0.1:8060 in your browser.
+You can find the Swagger UI page on http://127.0.0.1:8060 in your browser.
 
-Demo:
+## Demo
 
 <img src="./examples/screen.png" width="800">
  
